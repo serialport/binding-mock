@@ -9,5 +9,5 @@ export default {
     { format: 'esm', file: './dist/index-esm.mjs' },
     { format: 'cjs', file: './dist/index.js' },
   ],
-  external: [],
+  external: ['debug', '@serialport/bindings-interface'],
 }
