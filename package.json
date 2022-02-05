@@ -1,7 +1,7 @@
 {
-  "name": "@reconbot/typescript-library-template",
+  "name": "@serialport/binding-mock",
   "version": "0.0.0-development",
-  "description": "Rollup your code and types for publishing",
+  "description": "The mock serialport bindings",
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
   "exports": {
@@ -9,10 +9,10 @@
     "default": "./dist/index-esm.mjs"
   },
   "engines": {
-    "node": "^12.22 || ^14.13 || >=16"
+    "node": ">=12.0.0"
   },
-  "repository": "git@github.com:reconbot/typescript-library-template.git",
-  "homepage": "https://github.com/reconbot/typescript-library-template",
+  "repository": "git@github.com:serialport/binding-mock.git",
+  "homepage": "https://github.com/serialport/binding-mock",
   "scripts": {
     "test": "mocha",
     "lint": "tsc && eslint lib/**/*.ts",
@@ -23,7 +23,8 @@
     "semantic-release": "semantic-release"
   },
   "keywords": [
-    "typescript-library-template"
+    "serialport-binding",
+    "debug"
   ],
   "license": "MIT",
   "devDependencies": {
@@ -49,5 +50,9 @@
       "esbuild-register"
     ],
     "spec": "lib/**/*-test.ts"
+  },
+  "dependencies": {
+    "@serialport/bindings-interface": "^1.2.1",
+    "debug": "^4.3.3"
   }
 }
