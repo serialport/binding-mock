@@ -37,7 +37,7 @@
     "chai": "4.3.6",
     "esbuild": "0.14.48",
     "esbuild-register": "3.3.3",
-    "eslint": "8.18.0",
+    "eslint": "8.19.0",
     "mocha": "10.0.0",
     "rollup": "2.70.2",
     "rollup-plugin-node-resolve": "5.2.0",
