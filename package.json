@@ -9,7 +9,7 @@
     "default": "./dist/index-esm.mjs"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=16.0.0"
   },
   "repository": "git@github.com:serialport/binding-mock.git",
   "homepage": "https://github.com/serialport/binding-mock",
@@ -28,7 +28,8 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "@microsoft/api-extractor": "7.22.2",
+    "@microsoft/api-extractor": "7.36.4",
+    "@tsconfig/node18": "18.2.1",
     "@types/chai": "4.3.5",
     "@types/mocha": "10.0.1",
     "@types/node": "18.17.8",
@@ -41,7 +42,7 @@
     "mocha": "10.2.0",
     "rollup": "2.70.2",
     "rollup-plugin-node-resolve": "5.2.0",
-    "semantic-release": "19.0.2",
+    "semantic-release": "21.0.9",
     "typescript": "5.1.6"
   },
   "mocha": {
