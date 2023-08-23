@@ -2,8 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "dist-ts",
-    "noEmit": false,
-    "module": "es6"
+    "noEmit": false
   },
   "exclude": [
     "node_modules",
