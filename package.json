@@ -31,7 +31,7 @@
     "@microsoft/api-extractor": "7.36.4",
     "@rollup/plugin-node-resolve": "15.2.1",
     "@tsconfig/node18": "18.2.1",
-    "@types/chai": "4.3.17",
+    "@types/chai": "4.3.18",
     "@types/mocha": "10.0.7",
     "@types/node": "20.16.1",
     "@typescript-eslint/eslint-plugin": "8.2.0",
