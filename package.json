@@ -39,7 +39,7 @@
     "chai": "5.1.1",
     "esbuild": "0.23.1",
     "esbuild-register": "3.6.0",
-    "eslint": "8.57.0",
+    "eslint": "8.57.1",
     "mocha": "10.7.3",
     "rollup": "3.28.1",
     "semantic-release": "21.1.0",
