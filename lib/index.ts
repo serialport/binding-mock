@@ -25,6 +25,9 @@ export interface CreatePortOptions {
 let ports: {
   [key: string]: MockPortInternal
 } = {}
+let openMockPortBindings: {
+  [key: string]: MockPortBinding
+} = {};
 let serialNumber = 0
 
 function resolveNextTick() {
@@ -42,11 +45,13 @@ export class CanceledError extends Error {
 export interface MockBindingInterface extends BindingInterface<MockPortBinding> {
   reset(): void
   createPort(path: string, opt?: CreatePortOptions): void
+  getOpenMockPort(path: string): MockPortBinding
 }
 
 export const MockBinding: MockBindingInterface = {
   reset() {
     ports = {}
+    openMockPortBindings = {}
     serialNumber = 0
   },
 
@@ -80,6 +85,10 @@ export const MockBinding: MockBindingInterface = {
       },
     }
     debug(serialNumber, 'created port', JSON.stringify({ path, opt: options }))
+  },
+
+  getOpenMockPort(path) {
+    return openMockPortBindings[path];
   },
 
   async list() {
@@ -133,7 +142,9 @@ export const MockBinding: MockBindingInterface = {
 
     port.openOpt = { ...openOptions }
 
-    return new MockPortBinding(port, openOptions)
+    const portBinding = new MockPortBinding(port, openOptions)
+    openMockPortBindings[path] = portBinding
+    return portBinding
   },
 }
 
@@ -149,6 +160,7 @@ export class MockPortBinding implements BindingPortInterface {
   writeOperation: null | Promise<void>
   isOpen: boolean
   serialNumber?: string
+  writeToPort?: MockPortBinding
 
   constructor(port: MockPortInternal, openOptions: Required<OpenOptions>) {
     this.port = port
@@ -289,6 +301,12 @@ export class MockPortBinding implements BindingPortInterface {
             this.emitData(data)
           }
         })
+      } else if (this.writeToPort) {
+        process.nextTick(() => {
+          if (this.writeToPort.isOpen) {
+            this.writeToPort.emitData(data);
+          }
+        });
       }
       this.writeOperation = null
       debug(this.serialNumber, 'writing finished')
