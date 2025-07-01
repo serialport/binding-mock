@@ -20,6 +20,7 @@ export interface CreatePortOptions {
   manufacturer?: string
   vendorId?: string
   productId?: string
+  friendlyName?: string
 }
 
 let ports: {
@@ -77,6 +78,7 @@ export const MockBinding: MockBindingInterface = {
         locationId: undefined,
         vendorId: optWithDefaults.vendorId,
         productId: optWithDefaults.productId,
+        friendlyName: undefined,
       },
     }
     debug(serialNumber, 'created port', JSON.stringify({ path, opt: options }))
