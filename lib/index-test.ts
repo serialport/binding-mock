@@ -27,7 +27,7 @@ const openOptions: OpenOptions = {
 }
 
 describe('MockBinding', () => {
-  afterEach(() => {
+  beforeEach(() => {
     MockBinding.reset()
   })
 
@@ -86,6 +86,52 @@ describe('MockBinding', () => {
         MockBinding.createPort('/dev/exists')
         const port = await MockBinding.open(openOptions)
         assert.strictEqual(port.port.info.serialNumber, '1')
+      })
+    })
+    describe('getOpenMockPort', () => {
+      beforeEach(async () => {
+        MockBinding.reset()
+      })
+
+      it('should return a value for an existing open port', async () => {
+        MockBinding.createPort('/dev/exists')
+        await MockBinding.open(openOptions)
+        const openPort = MockBinding.getOpenMockPort('/dev/exists')
+        assert.strictEqual(openPort.port.info.serialNumber, '1')
+      })
+
+      it('should return undefined for an unknown port path', async () => {
+        const openPort = MockBinding.getOpenMockPort('/dev/unknown')
+        assert.strictEqual(openPort, undefined)
+      })
+
+      it('should return undefined for an existing port that is not open', async () => {
+        MockBinding.createPort('/dev/exists')
+        const openPort = MockBinding.getOpenMockPort('/dev/exists')
+        assert.strictEqual(openPort, undefined)
+      })
+    })
+  })
+})
+
+describe('MockPortBinding', () => {
+  beforeEach(() => {
+    MockBinding.reset()
+  })
+
+  describe('instance property', () => {
+    describe('writeToPort', () => {
+      it('can send data from one port to another', async () => {
+        MockBinding.createPort('/dev/exists')
+        const port1 = await MockBinding.open(openOptions)
+        const port2 = await MockBinding.open(openOptions)
+        port1.writeToPort = port2
+
+        const message = Buffer.from('MSG')
+        await port1.write(message)
+        const receivingBuffer = Buffer.alloc(message.length)
+        await port2.read(receivingBuffer, 0, message.length)
+        assert.isTrue(receivingBuffer.equals(message))
       })
     })
   })
